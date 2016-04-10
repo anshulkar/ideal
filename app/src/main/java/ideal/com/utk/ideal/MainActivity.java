@@ -2,8 +2,6 @@ package ideal.com.utk.ideal;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -26,12 +24,13 @@ public class MainActivity extends AppCompatActivity
 
 
     User_details userDetails;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -61,15 +60,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Leave application form", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                startActivity(leave_app_activity);
-            }
-        });*/
         findViewById(R.id.fab_cl).setOnClickListener(this);
         findViewById(R.id.fab_ocl).setOnClickListener(this);
 
@@ -99,29 +89,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, as long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -130,11 +97,12 @@ public class MainActivity extends AppCompatActivity
 
         Fragment frag;
         FragmentTransaction fragTrans;
-        if (id == R.id.nav_leave_process) {
-            frag = new LeaveProcessingFragment();
+        if (id == R.id.nav_leave_status) {
+            frag = new LeaveStatusFragment();
+            toolbar.setTitle("Leave Status");
             fragTrans = getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fragment,frag);
             fragTrans.commit();
-        } else if (id == R.id.nav_leave_approved) {
+        } /*else if (id == R.id.nav_leave_approved) {
 
             frag = new LeaveApprovedFragment();
             fragTrans = getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fragment,frag);
@@ -145,10 +113,10 @@ public class MainActivity extends AppCompatActivity
             fragTrans.commit();
 
 
-        } /**else if (id == R.id.nav_debug) {
+        }else if (id == R.id.nav_help) {
             final Intent i = new Intent(this, LogInActivity.class);
             startActivity(i);
-        }**/
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

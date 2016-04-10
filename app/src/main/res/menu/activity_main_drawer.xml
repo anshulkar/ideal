@@ -2,18 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single"><item
-        android:id="@+id/nav_leave_process"
+        android:id="@+id/nav_leave_status"
         android:icon="@drawable/ic_menu_gallery"
-        android:title="Leaves Processing" />
+        android:title="Leaves Status" />
 
-        <item
-            android:id="@+id/nav_leave_approved"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Leaves Approved" />
-        <item
-            android:id="@+id/nav_leave_rejected"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Leaves Rejected" />
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_slideshow"

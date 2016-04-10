@@ -9,6 +9,7 @@ public class LeaveDataJSONSchema {
             type = null ,//TODO:api currently doesnt return the type of leave;
             nature = null ,
             leaveStart = null,
+            address = null,
             leaveEnd = null ,
             grounds = null ,
             recommender = null ,

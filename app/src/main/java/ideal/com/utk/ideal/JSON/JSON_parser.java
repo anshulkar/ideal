@@ -74,7 +74,6 @@ public class JSON_parser {
                 is.close();
                 // Convert the string builder data to an actual string.
                 json = sb.toString();
-                Log.d("qwerty",json);
             } catch (Exception e) {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }finally{
@@ -90,7 +89,7 @@ public class JSON_parser {
         // Try to parse the string to a JSON object
         try {
             jObj = new JSONObject(json);
-            Log.d("tag",json);
+            Log.d("JSON_parser.jsondata",json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }

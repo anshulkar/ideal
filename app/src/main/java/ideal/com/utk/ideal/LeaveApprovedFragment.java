@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -66,9 +67,22 @@ public class LeaveApprovedFragment extends Fragment {
             public void onClick(View view, int position) {
                 LeaveDataJSONSchema ld = leaveDataList.get(position);
                 //Toast.makeText(getActivity(), ld.nature + " is selected!", Toast.LENGTH_SHORT).show();
+                LeaveDialog dFragment = new LeaveDialog();
+                dFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_NoTitle);
+                // Show DialogFragment
                 Bundle bundle = new Bundle();
-                String myMessage = "Stackoverflow is cool!";
-                bundle.putString("message", myMessage );
+                bundle.putString("nature", ld.nature);
+                bundle.putString("sdate", ld.leaveStart);
+                bundle.putString("edate", ld.leaveEnd);
+                bundle.putString("grounds", ld.grounds);
+                //bundle.putString("address", ld.address);
+                bundle.putString("acomment", ld.approverComment);
+                bundle.putString("rcomment", ld.recommenderComment);
+                //bundle.putString("tlc", ld.tlc);
+
+                // set Fragmentclass Arguments
+                dFragment.setArguments(bundle);
+                dFragment.show(fm, "Dialog Fragment");
             }
 
             @Override
@@ -99,9 +113,7 @@ public class LeaveApprovedFragment extends Fragment {
                 @Override
                 public boolean onSingleTapUp(MotionEvent e) {
 
-                    LeaveDialog dFragment = new LeaveDialog();
-                    // Show DialogFragment
-                    dFragment.show(fm, "Dialog Fragment");
+
                     return true;
                 }
 
