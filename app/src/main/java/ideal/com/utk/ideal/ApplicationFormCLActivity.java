@@ -29,6 +29,7 @@ public class ApplicationFormCLActivity extends AppCompatActivity implements View
 
 
     private String URL_ADDRESS;
+    private ProgressDialog pdia;
 
     private DatePickerDialog datePickerDialog;
     private EditText startDate, endDate;
@@ -59,6 +60,14 @@ public class ApplicationFormCLActivity extends AppCompatActivity implements View
 
         startDate.setOnClickListener(this);
         endDate.setOnClickListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(pdia!= null)
+            pdia.dismiss();
     }
 
     @Override
@@ -133,7 +142,6 @@ public class ApplicationFormCLActivity extends AppCompatActivity implements View
         //three methods get called, first preExecute, then do in background, and once do
         //in back ground is completed, the onPost execute method will be called.//TODO:incorporate on progreessdialog cancelled method in all asynctask
 
-        private ProgressDialog pdia;
 
         @Override
         protected void onPreExecute() {

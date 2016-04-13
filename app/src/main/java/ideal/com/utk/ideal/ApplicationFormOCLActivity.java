@@ -43,6 +43,8 @@ public class ApplicationFormOCLActivity extends AppCompatActivity implements Vie
     private final Calendar currentDate = Calendar.getInstance();
     private Calendar entered_s_date = Calendar.getInstance(),entered_e_date = Calendar.getInstance();
 
+    private ProgressDialog pdia;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,14 @@ public class ApplicationFormOCLActivity extends AppCompatActivity implements Vie
 
 
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(pdia!= null)
+            pdia.dismiss();
     }
 
     @Override
@@ -166,8 +176,6 @@ public class ApplicationFormOCLActivity extends AppCompatActivity implements Vie
 
         //three methods get called, first preExecute, then do in background, and once do
         //in back ground is completed, the onPost execute method will be called.//TODO:incorporate on progreessdialog cancelled method in all asynctask
-
-        private ProgressDialog pdia;
 
         @Override
         protected void onPreExecute() {

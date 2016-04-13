@@ -15,6 +15,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+            <!--android:screenOrientation="landscape"TODO:Temporary workaround till i fully implement the saved instance methods in activities to handle config changes-->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ideal.com.utk.ideal.MainActivity" />

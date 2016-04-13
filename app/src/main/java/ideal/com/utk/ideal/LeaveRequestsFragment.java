@@ -31,6 +31,7 @@ public class LeaveRequestsFragment extends Fragment {
     private List<LeaveDataJSONSchema> leaveDataList = new ArrayList<>();
     private RecyclerView recyclerView;
     private LeaveDataAdapter mAdapter;
+    private ProgressDialog pdia;
 
 
 
@@ -53,6 +54,7 @@ public class LeaveRequestsFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
         setRetainInstance(true);
@@ -63,12 +65,19 @@ public class LeaveRequestsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(pdia!= null)
+            pdia.dismiss();
+    }
+
     class RetrieveInfo extends AsyncTask<Void, Void, JSONObject> {
 
         //three methods get called, first preExecute, then do in background, and once do
         //in back ground is completed, the onPost execute method will be called.
 
-        private ProgressDialog pdia;
 
         @Override
         protected void onPreExecute() {

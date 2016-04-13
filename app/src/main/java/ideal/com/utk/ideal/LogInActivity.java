@@ -21,6 +21,8 @@ import ideal.com.utk.ideal.custom_datatypes.User_details;
 
 public class LogInActivity extends AppCompatActivity {
     private  String URL_ADDRESS;
+    private ProgressDialog pdia;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +71,19 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(pdia!= null)
+            pdia.dismiss();
+    }
+
     class AttemptLogin extends AsyncTask<String,Void,JSONObject> {
 
         //three methods get called, first preExecute, then do in background, and once do
         //in back ground is completed, the onPost execute method will be called.//TODO:incorporate on progreessdialog cancelled method in all asynctask
 
-        private ProgressDialog pdia;
 
         @Override
         protected void onPreExecute() {

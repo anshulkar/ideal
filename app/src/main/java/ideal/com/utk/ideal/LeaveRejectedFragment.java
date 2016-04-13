@@ -1,13 +1,18 @@
 package ideal.com.utk.ideal;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -31,6 +36,9 @@ public class LeaveRejectedFragment extends Fragment {
     private RecyclerView recyclerView;
     private LeaveDataAdapter mAdapter;
 
+    FragmentManager fm;
+    private ProgressDialog pdia;
+
 
 
     public LeaveRejectedFragment() {
@@ -52,22 +60,114 @@ public class LeaveRejectedFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
         setRetainInstance(true);
 
         RetrieveInfo rinfo = new RetrieveInfo();
         rinfo.execute();
+
+        fm = getActivity().getSupportFragmentManager();
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                LeaveDataJSONSchema ld = leaveDataList.get(position);
+                //Toast.makeText(getActivity(), ld.nature + " is selected!", Toast.LENGTH_SHORT).show();
+                LeaveDialog dFragment = new LeaveDialog();
+                dFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_NoTitle);
+                // Show DialogFragment
+                Bundle bundle = new Bundle();
+                bundle.putString("nature", ld.nature);
+                bundle.putString("sdate", ld.leaveStart);
+                bundle.putString("edate", ld.leaveEnd);
+                bundle.putString("grounds", ld.grounds);
+                //bundle.putString("address", ld.address);
+                bundle.putString("acomment", ld.approverComment);
+                bundle.putString("rcomment", ld.recommenderComment);
+                //bundle.putString("tlc", ld.tlc);
+
+                // set Fragmentclass Arguments
+                dFragment.setArguments(bundle);
+                dFragment.show(fm, "Dialog Fragment");
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+
         return view;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(pdia!= null)
+            pdia.dismiss();
+    }
+
+
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+    public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+
+
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
 
     class RetrieveInfo extends AsyncTask<Void, Void, JSONObject> {
 
         //three methods get called, first preExecute, then do in background, and once do
         //in back ground is completed, the onPost execute method will be called.
-
-        private ProgressDialog pdia;
 
         @Override
         protected void onPreExecute() {

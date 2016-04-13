@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LeaveStatusFragment extends Fragment {
+public class LeaveHistoryFragment extends Fragment {
 
 
-    public LeaveStatusFragment() {
+    public LeaveHistoryFragment() {
         // Required empty public constructor
     }
 
@@ -27,17 +26,16 @@ public class LeaveStatusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_leave_status, container, false);
+        View view = inflater.inflate(R.layout.fragment_leave_history, container, false);
 
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Processing"));
         tabLayout.addTab(tabLayout.newTab().setText("Approved"));
         tabLayout.addTab(tabLayout.newTab().setText("Rejected"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
-        final PagerAdapter adapter = new LeaveStatusViewPagerAdapter
+        final PagerAdapter adapter = new LeaveHistoryViewPagerAdapter
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

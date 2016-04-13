@@ -9,8 +9,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_leave_application">LeaveApplicationActivity</string>
-    <string name="title_activity_leave_history">LeaveHistory</string>
+    <string name="title_activity_leave_history">Leave History</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -25,13 +24,12 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
     </string>
-    <string name="title_activity_log_in">LogInActivity</string>
-    <string name="title_activity_user_account">UserAccountActivity</string>
-    <string name="title_activity_application_form_ocl">OCLApplicationFormActivity</string>
-    <string name="title_activity_application_form_cl">CLApplicationFormActivity</string>
+    <string name="title_activity_log_in">Log In</string>
+    <string name="title_activity_user_account">Profile</string>
+    <string name="title_activity_application_form_ocl">OCL Application Form</string>
+    <string name="title_activity_application_form_cl">CL Application Form</string>
     <string name="application_form_ocl_leavetype">Type of Leave</string>
     <string name="application_form_ocl_cl_grounds">Grounds for Leave</string>
     <string name="application_form_ocl_cl_address">Address while on Leave</string>

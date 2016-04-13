@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,17 +96,18 @@ public class MainActivity extends AppCompatActivity
 
         Fragment frag;
         FragmentTransaction fragTrans;
-        if (id == R.id.nav_leave_status) {
-            frag = new LeaveStatusFragment();
-            toolbar.setTitle("Leave Status");
+        if (id == R.id.nav_leave_history) {
+            frag = new LeaveHistoryFragment();
+            toolbar.setTitle("Leave History");
             fragTrans = getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fragment,frag);
             fragTrans.commit();
-        } /*else if (id == R.id.nav_leave_approved) {
+        } else if (id == R.id.nav_leave_processing) {
 
-            frag = new LeaveApprovedFragment();
+            frag = new LeaveProcessingFragment();
+            toolbar.setTitle("Leaves Processing");
             fragTrans = getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fragment,frag);
             fragTrans.commit();
-        } else if (id == R.id.nav_leave_rejected) {
+        } /*else if (id == R.id.nav_leave_rejected) {
             frag = new LeaveRejectedFragment();
             fragTrans = getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fragment,frag);
             fragTrans.commit();

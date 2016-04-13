@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ideal.com.utk.ideal.HolidaysListFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+<!--
+    TODO:remove or update this layout
+-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

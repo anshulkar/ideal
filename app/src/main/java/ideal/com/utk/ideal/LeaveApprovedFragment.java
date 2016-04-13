@@ -32,6 +32,9 @@ public class LeaveApprovedFragment extends Fragment {
 
     private String URL_ADDRESS;
     FragmentManager fm;
+
+    private ProgressDialog pdia;
+
     public LeaveApprovedFragment() {
         // Required empty public constructor
     }
@@ -45,7 +48,6 @@ public class LeaveApprovedFragment extends Fragment {
 
         URL_ADDRESS  = getResources().getString(R.string.server_url)+"leaveSlimAPI/public/index.php/apps/getMyApps/approved";
 
-        fm = getActivity().getSupportFragmentManager();
         View view = inflater.inflate(R.layout.fragment_leave_approved_rejected_requests_processing, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
@@ -54,6 +56,7 @@ public class LeaveApprovedFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
         setRetainInstance(true);
@@ -62,6 +65,7 @@ public class LeaveApprovedFragment extends Fragment {
         ri.execute();
 
 
+        fm = getActivity().getSupportFragmentManager();
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -92,6 +96,14 @@ public class LeaveApprovedFragment extends Fragment {
         }));
 
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(pdia!= null)
+            pdia.dismiss();
     }
 
 
@@ -150,8 +162,6 @@ public class LeaveApprovedFragment extends Fragment {
 
 
     class RetrieveInfo extends AsyncTask<Void, Void, JSONObject> {
-
-        private ProgressDialog pdia;
 
         //three methods get called, first preExecute, then do in background, and once do
         //in back ground is completed, the onPost execute method will be called.

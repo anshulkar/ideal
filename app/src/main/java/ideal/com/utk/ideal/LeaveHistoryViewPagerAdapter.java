@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class LeaveStatusViewPagerAdapter extends FragmentStatePagerAdapter {
+public class LeaveHistoryViewPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public LeaveStatusViewPagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public LeaveHistoryViewPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -18,17 +18,14 @@ public class LeaveStatusViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        LeaveProcessingFragment tab1 = new LeaveProcessingFragment();
-        LeaveApprovedFragment tab2 = new LeaveApprovedFragment();
-        LeaveRejectedFragment tab3 = new LeaveRejectedFragment();
+        LeaveApprovedFragment tab1 = new LeaveApprovedFragment();
+        LeaveRejectedFragment tab2 = new LeaveRejectedFragment();
 
         switch (position) {
             case 0:
                 return tab1;
             case 1:
                 return tab2;
-            case 2:
-                return tab3;
             default:
                 return null;
         }
