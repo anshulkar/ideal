@@ -46,7 +46,7 @@ public class LeaveProcessingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        URL_ADDRESS  = getResources().getString(R.string.server_url)+"leaveSlimAPI/public/index.php/apps/getMyApps/processing";
+        URL_ADDRESS  = getResources().getString(R.string.server_url)+"index.php/apps/getMyApps/processing";
 
         View view = inflater.inflate(R.layout.fragment_leave_approved_rejected_requests_processing, container, false);
 
@@ -56,7 +56,6 @@ public class LeaveProcessingFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
         setRetainInstance(true);
@@ -190,7 +189,7 @@ public class LeaveProcessingFragment extends Fragment {
              token.value = saved_user.getToken();
              NameValuePair type = new NameValuePair();
              type.name = "Type";
-             type.value = "" + saved_user.getType();
+             type.value = "" + saved_user.getUserType();
 
              JSON_parser json_parser = new JSON_parser();
              JSONObject jObj = json_parser.getJSONFromUrl("GET" , URL_ADDRESS, user, token, type);

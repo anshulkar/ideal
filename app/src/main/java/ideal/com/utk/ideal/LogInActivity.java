@@ -28,7 +28,7 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        URL_ADDRESS= getResources().getString(R.string.server_url)+"leaveSlimAPI/public/index.php/login";
+        URL_ADDRESS= getResources().getString(R.string.server_url)+"index.php/login";
 
         final EditText password = (EditText)findViewById(R.id.password);
         final EditText username = (EditText)findViewById(R.id.username);

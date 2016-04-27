@@ -46,7 +46,7 @@ public class LeaveApprovedFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        URL_ADDRESS  = getResources().getString(R.string.server_url)+"leaveSlimAPI/public/index.php/apps/getMyApps/approved";
+        URL_ADDRESS  = getResources().getString(R.string.server_url)+"index.php/apps/getMyApps/approved";
 
         View view = inflater.inflate(R.layout.fragment_leave_approved_rejected_requests_processing, container, false);
 
@@ -56,7 +56,6 @@ public class LeaveApprovedFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
         setRetainInstance(true);
@@ -75,15 +74,18 @@ public class LeaveApprovedFragment extends Fragment {
                 dFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_NoTitle);
                 // Show DialogFragment
                 Bundle bundle = new Bundle();
-                bundle.putString("nature", ld.nature);
+                /*bundle.putString("nature", ld.nature);
                 bundle.putString("sdate", ld.leaveStart);
                 bundle.putString("edate", ld.leaveEnd);
                 bundle.putString("grounds", ld.grounds);
                 //bundle.putString("address", ld.address);
                 bundle.putString("acomment", ld.approverComment);
                 bundle.putString("rcomment", ld.recommenderComment);
-                //bundle.putString("tlc", ld.tlc);
+                //bundle.putString("tlc", ld.tlc);*/
 
+                User_details ud = new User_details(getActivity());
+                if(ud.getUserType()=='A')bundle.putString("subbut","Approve");
+                else bundle.putString("subbut","Recommend");
                 // set Fragmentclass Arguments
                 dFragment.setArguments(bundle);
                 dFragment.show(fm, "Dialog Fragment");
@@ -189,7 +191,7 @@ public class LeaveApprovedFragment extends Fragment {
              token.value = saved_user.getToken();
              NameValuePair type = new NameValuePair();
              type.name = "Type";
-             type.value = "" + saved_user.getType();
+             type.value = "" + saved_user.getUserType();
 
              JSON_parser json_parser = new JSON_parser();
              JSONObject jObj = json_parser.getJSONFromUrl("GET", URL_ADDRESS, user, token, type);

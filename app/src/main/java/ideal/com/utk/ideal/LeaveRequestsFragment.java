@@ -22,6 +22,10 @@ import ideal.com.utk.ideal.JSON.LeaveDataJSONParser;
 import ideal.com.utk.ideal.JSON.LeaveDataJSONSchema;
 import ideal.com.utk.ideal.custom_datatypes.NameValuePair;
 import ideal.com.utk.ideal.custom_datatypes.User_details;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
+import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
 
 /**
  * Created by Utkarsh on 07-04-2016 with the help of SWAG.
@@ -44,23 +48,49 @@ public class LeaveRequestsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_leave_approved_rejected_requests_processing, container, false);
+        //View view = inflater.inflate(R.layout.fragment_leave_approved_rejected_requests_processing, container, false);
+        View view = inflater.inflate(R.layout.debug,container,false);
 
 
-        URL_ADDRESS = getResources().getString(R.string.server_url)+"leaveSlimAPI/public/index.php/apps/getMyApps/approved";//TODO:fix the api url
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        Bundle bundle = this.getArguments();
+        URL_ADDRESS = getResources().getString(R.string.server_url)+"index.php/apps/getMyApps/"+bundle.getString("api");
 
+        /*recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mAdapter = new LeaveDataAdapter(leaveDataList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);*/
+
+
+        ArrayList<Card> cards = new ArrayList<>();
+
+        //Create a Card
+        Card card = new Card(getContext());
+
+        //Create a CardHeader
+        CardHeader header = new CardHeader(getContext());
+        //Add Header to card
+        card.addCardHeader(header);
+
+        cards.add(card);
+
+        CardArrayRecyclerViewAdapter mCardArrayAdapter = new CardArrayRecyclerViewAdapter(getActivity(), cards);
+
+        //Staggered grid view
+        CardRecyclerView mRecyclerView = (CardRecyclerView) view.findViewById(R.id.carddemo_recyclerview);
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //Set the empty view
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(mCardArrayAdapter);
+        }
 
         setRetainInstance(true);
 
-        RetrieveInfo rinfo = new RetrieveInfo();
-        rinfo.execute();
+        //RetrieveInfo rinfo = new RetrieveInfo();
+        //rinfo.execute();
         return view;
     }
 
@@ -100,7 +130,7 @@ public class LeaveRequestsFragment extends Fragment {
              token.value = saved_user.getToken();
              NameValuePair type = new NameValuePair();
              type.name = "Type";
-             type.value = "" + saved_user.getType();
+             type.value = "" + saved_user.getUserType();
 
              JSON_parser json_parser = new JSON_parser();
              JSONObject jObj = json_parser.getJSONFromUrl("GET", URL_ADDRESS, user, token, type);

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <group
+        android:id="@+id/lreq"
+        android:checkableBehavior="single"
+        android:visible="true">
+        <item
+            android:id="@+id/nav_leave_requests"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Leave Requests" />
+    </group>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_leave_processing"
@@ -16,5 +25,6 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Help" />
     </group>
+
 
 </menu>

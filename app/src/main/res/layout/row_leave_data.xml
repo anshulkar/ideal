@@ -1,47 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<it.gmariotti.cardslib.library.view.CardViewNative
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/carddemo"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:clickable="true"
+    card:card_layout_resourceID="@layout/native_cardwithlist_layout"
+    style="@style/card_external"
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:clickable="true"
+        >
 
-    <TextView
-        android:id="@+id/leave_nature"
-        android:textColor="#222222"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:text="nature"
-        android:layout_alignParentTop="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/leave_nature"
+            android:textColor="#222222"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:text="nature"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/leave_start_date"
-        android:layout_below="@id/leave_nature"
-        android:layout_width="wrap_content"
-        android:text="start"
-        android:padding="5dp"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/leave_end_date"
-        android:layout_below="@id/leave_nature"
-        android:layout_toRightOf="@id/leave_start_date"
-        android:layout_width="wrap_content"
-        android:text="end"
-        android:padding="5dp"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/leave_start_date"
+            android:layout_below="@id/leave_nature"
+            android:layout_width="wrap_content"
+            android:text="start"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/leave_end_date"
+            android:layout_below="@id/leave_nature"
+            android:layout_toRightOf="@id/leave_start_date"
+            android:layout_width="wrap_content"
+            android:text="end"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/leave_type"
-        android:textColor="#999999"
-        android:layout_width="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="type"
+        <TextView
+            android:id="@+id/leave_type"
+            android:textColor="#999999"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="type"
 
-        android:layout_height="wrap_content" />
-</RelativeLayout>
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</it.gmariotti.cardslib.library.view.CardViewNative>

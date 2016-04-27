@@ -26,7 +26,7 @@ public class User_details {
     public String getToken(){
         return prefs.getString("token",null);
     }
-    public char getType(){
+    public char getUserType(){
         return prefs.getString("token",null).charAt(0);
     }
     public void setToken(String s){

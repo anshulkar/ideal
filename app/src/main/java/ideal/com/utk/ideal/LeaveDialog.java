@@ -28,12 +28,13 @@ public class LeaveDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_leavedialog, container);
-        getDialog().setTitle("Leave Details");
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.d_toolbar);
         toolbar.setTitle("Leave Details");
 
-        nature = (TextView) view.findViewById(R.id.l_diag_nature);
+        Bundle bundle = this.getArguments();
+
+       /* nature = (TextView) view.findViewById(R.id.l_diag_nature);
         sdate = (TextView) view.findViewById(R.id.l_diag_startdate);
         edate = (TextView) view.findViewById(R.id.l_diag_enddate);
         grounds = (TextView) view.findViewById(R.id.l_diag_grounds);
@@ -47,7 +48,7 @@ public class LeaveDialog extends DialogFragment {
         edate.setText(getArguments().getString("edate"));
         grounds.setText(getArguments().getString("grounds"));
         rcomment.setText(getArguments().getString("rcomment"));
-        acomment.setText(getArguments().getString("acomment"));
+        acomment.setText(getArguments().getString("acomment"));*/
         return view;
     }
 

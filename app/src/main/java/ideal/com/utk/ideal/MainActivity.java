@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
 
 
         userDetails = new User_details(this);
+        if(userDetails.getUserType()!='U')navigationView.getMenu().setGroupVisible(R.id.lreq, true);
 
         View nav_header = navigationView.inflateHeaderView(R.layout.nav_header_main);
         ((TextView)nav_header.findViewById(R.id.nav_header_name)).setText(userDetails.getFname() +" "+ userDetails.getLname());
@@ -107,13 +109,18 @@ public class MainActivity extends AppCompatActivity
             toolbar.setTitle("Leaves Processing");
             fragTrans = getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fragment,frag);
             fragTrans.commit();
-        } /*else if (id == R.id.nav_leave_rejected) {
-            frag = new LeaveRejectedFragment();
+        } else if (id == R.id.nav_leave_requests) {
+            frag = new LeaveRequestsFragment();
+            toolbar.setTitle("Leave Requests");
+            Bundle bundle = new Bundle();
+            if(userDetails.getUserType()=='R')bundle.putString("api", "getRecommendations" );
+            else if(userDetails.getUserType() == 'A')bundle.putString("api", "getApprovals" );//TODO: handle the admin user
+            frag.setArguments(bundle);
             fragTrans = getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fragment,frag);
             fragTrans.commit();
 
 
-        }else if (id == R.id.nav_help) {
+        }/*else if (id == R.id.nav_help) {
             final Intent i = new Intent(this, LogInActivity.class);
             startActivity(i);
         }*/

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Ideal</string>
 
-    <string name="server_url">http://13.76.43.189/app/</string>
+    <string name="server_url">http://13.76.43.189/api/public/</string>
     <string name="shown_date_format">dd-MM-yyyy</string>
     <string name="server_date_format">yyyy-MM-dd</string>
 
@@ -44,4 +44,7 @@
         <item>Maternity Leave</item>
         <item>Earned Leave</item>
     </string-array>
+
+    <!--push notifi-->
+    <string name="gcm_senderId">936866600452</string>
 </resources>

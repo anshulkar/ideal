@@ -54,7 +54,7 @@ public class ApplicationFormOCLActivity extends AppCompatActivity implements Vie
         setSupportActionBar(toolbar);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);//to make the keyboard appear only when any edittext is focused
 
-        URL_ADDRESS = getResources().getString(R.string.server_url)+"leaveSlimAPI/public/index.php/apps/apply";
+        URL_ADDRESS = getResources().getString(R.string.server_url)+"index.php/apps/apply";
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
@@ -201,7 +201,7 @@ public class ApplicationFormOCLActivity extends AppCompatActivity implements Vie
 
             NameValuePair usertype = new NameValuePair();
             usertype.name = "Type";
-            usertype.value = "" + user.getType();
+            usertype.value = "" + user.getUserType();
 
             NameValuePair leavetype = new NameValuePair();
             leavetype.name="leaveType";
