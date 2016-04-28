@@ -13,12 +13,17 @@ import it.gmariotti.cardslib.library.prototypes.CardWithList;
  * Created by Utkarsh on 20-04-2016 with the help of SWAG.
  */
 public class LeaveDataCard extends CardWithList{
-    public LeaveDataCard(Context context) {
-        super(context);
+    private Context context;
+
+    public LeaveDataCard(Context c) {
+        super(c);
+        context = c;
     }
 
     @Override
     protected CardHeader initCardHeader() {
+        CardHeader head = new CardHeader(context);
+        head.setTitle("sadd");
         return null;
     }
 
