@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This is the Header Layout -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    style="@style/card.native.header_compound_view">
+
+    <!-- This is the Inner Content Header which you can populate runtime
+         with setupInnerViewElements(android.view.ViewGroup, android.view.View) method in CardHeader class. -->
+    <FrameLayout
+        android:id="@+id/card_header_inner_frame"
+        style="@style/card.native.header_inner_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/leave_type"
+                android:textColor="#222222"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                style="@style/card.native.header_simple_title"
+                android:text="OCL"
+
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/leave_start_date"
+                android:layout_below="@id/leave_type"
+                android:layout_width="wrap_content"
+                android:text="start"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/leave_end_date"
+                android:layout_below="@id/leave_type"
+                android:layout_toRightOf="@id/leave_start_date"
+                android:layout_width="wrap_content"
+                android:text="end"
+                android:padding="5dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/leave_nature"
+                android:textColor="#999999"
+                android:layout_width="wrap_content"
+                android:text="type"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</RelativeLayout>

@@ -70,32 +70,43 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ideal.com.utk.ideal.MainActivity" />
         </activity>
-        <service
-            android:name=".Notifications.RegistrationIntentService"
-            android:exported="false"/>
-        <service
-            android:name=".Notifications.MyInstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
-            </intent-filter>
-        </service>
+
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
                 <category android:name="ideal.com.utk.ideal.push.notification" /><!--TODO:fix the name-->
             </intent-filter>
         </receiver>
+
         <service
-            android:name=".Notifications.GcmMessageHandler"
+            android:name=".notifications.GcmMessageHandler"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
+
+        <service
+            android:name=".notifications.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".notifications.RegistrationIntentService"
+            android:exported="false">
+        </service>
+
+
+
     </application>
 
 </manifest>

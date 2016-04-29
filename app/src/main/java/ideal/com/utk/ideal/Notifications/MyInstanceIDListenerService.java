@@ -1,4 +1,4 @@
-package ideal.com.utk.ideal.Notifications;
+package ideal.com.utk.ideal.notifications;
 
 import android.content.Intent;
 

@@ -49,6 +49,7 @@ public class LoginJSONSchema {
             user_details.setLname(details.getString("Lname"));
             user_details.setOCL_balance(details.getString("OCL_Balance"));
             user_details.setCL_balance(details.getString("CL_Balance"));
+            user_details.setRecommender(details.getString("recommender"));
 
         }
         catch(Exception e){

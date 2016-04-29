@@ -62,4 +62,10 @@ public class User_details {
     public void setLname(String s){
         prefs.edit().putString("lname",s).apply();
     }
+    public String getRecommender(){
+        return prefs.getString("recommender",null);
+    }
+    public void setRecommender(String s){
+        prefs.edit().putString("recommender",s).apply();
+    }
 }

@@ -1,13 +1,18 @@
 package ideal.com.utk.ideal;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -36,6 +41,7 @@ public class LeaveRequestsFragment extends Fragment {
     private RecyclerView recyclerView;
     private LeaveDataAdapter mAdapter;
     private ProgressDialog pdia;
+    FragmentManager fm;
 
 
 
@@ -48,49 +54,63 @@ public class LeaveRequestsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        //View view = inflater.inflate(R.layout.fragment_leave_approved_rejected_requests_processing, container, false);
-        View view = inflater.inflate(R.layout.debug,container,false);
+        View view = inflater.inflate(R.layout.fragment_leave_approved_rejected_requests_processing, container, false);
 
 
         Bundle bundle = this.getArguments();
         URL_ADDRESS = getResources().getString(R.string.server_url)+"index.php/apps/getMyApps/"+bundle.getString("api");
 
-        /*recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mAdapter = new LeaveDataAdapter(leaveDataList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);*/
+        recyclerView.setAdapter(mAdapter);
 
 
-        ArrayList<Card> cards = new ArrayList<>();
-
-        //Create a Card
-        Card card = new Card(getContext());
-
-        //Create a CardHeader
-        CardHeader header = new CardHeader(getContext());
-        //Add Header to card
-        card.addCardHeader(header);
-
-        cards.add(card);
-
-        CardArrayRecyclerViewAdapter mCardArrayAdapter = new CardArrayRecyclerViewAdapter(getActivity(), cards);
-
-        //Staggered grid view
-        CardRecyclerView mRecyclerView = (CardRecyclerView) view.findViewById(R.id.carddemo_recyclerview);
-        mRecyclerView.setHasFixedSize(false);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //Set the empty view
-        if (mRecyclerView != null) {
-            mRecyclerView.setAdapter(mCardArrayAdapter);
-        }
 
         setRetainInstance(true);
 
-        //RetrieveInfo rinfo = new RetrieveInfo();
-        //rinfo.execute();
+        RetrieveInfo rinfo = new RetrieveInfo();
+        rinfo.execute();
+        fm = getActivity().getSupportFragmentManager();
+        final User_details user = new User_details(getActivity());
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                LeaveDataJSONSchema ld = leaveDataList.get(position);
+                //Toast.makeText(getActivity(), ld.nature + " is selected!", Toast.LENGTH_SHORT).show();
+                LeaveDialog dFragment = new LeaveDialog();
+                dFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_NoTitle);
+                Bundle bundle = new Bundle();
+                if(user.getUserType()=='R'){
+                    bundle.putString("title","Recommend");
+                    bundle.putString("button","Recommend");
+                    bundle.putBoolean("showrej",false);
+                }
+                else{
+                    bundle.putString("title","Approve");
+                    bundle.putString("button","Approve");
+                    bundle.putBoolean("showrej",true);
+                }
+
+                bundle.putString("ltype",ld.type);
+                // Show DialogFragment
+
+
+
+                // set Fragmentclass Arguments
+                dFragment.setArguments(bundle);
+                dFragment.show(fm, "Dialog Fragment");
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+
         return view;
     }
 
@@ -101,6 +121,58 @@ public class LeaveRequestsFragment extends Fragment {
 
         if(pdia!= null)
             pdia.dismiss();
+    }
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+    public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+
+
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
     }
 
     class RetrieveInfo extends AsyncTask<Void, Void, JSONObject> {

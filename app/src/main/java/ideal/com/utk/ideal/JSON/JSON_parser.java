@@ -32,7 +32,7 @@ public class JSON_parser {
 
     public JSONObject getJSONFromUrl(String verb, String url_str, NameValuePair... params) {
         try {
-            URL url= new URL(url_str);
+            URL url;
             HttpURLConnection urlConnection;
 
                 url = new URL(url_str);

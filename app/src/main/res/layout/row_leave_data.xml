@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/card.native"
     android:focusable="true"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
@@ -13,9 +14,10 @@
     <TextView
         android:id="@+id/leave_nature"
         android:textColor="#222222"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:text="nature"
+        style="@style/card.native.header_simple_title"
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -6,4 +6,9 @@ package ideal.com.utk.ideal.custom_datatypes;
 public class NameValuePair {
     public String name;
     public String value;
+    public NameValuePair(){}
+    public NameValuePair(String name,String value){
+        this.name=name;
+        this.value=value;
+    }
 }
